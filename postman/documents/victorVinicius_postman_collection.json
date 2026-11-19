@@ -1,0 +1,403 @@
+{
+  "info": {
+    "_postman_id": "1761da3f-854c-41f8-9102-67fc8a028206",
+    "name": "Victor Vinicius",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60296496",
+    "_collection_link": "https://go.postman.co/collection/60296496-1761da3f-854c-41f8-9102-67fc8a028206?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "notificacao",
+      "item": [
+        {
+          "name": "201 - notificação válida",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"destinatario\": \"eric@ifnmg.edu.br\", \"mensagem\": \"teste do Postman\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_notificacao}}/notificacoes",
+              "host": [
+                "{{url_notificacao}}"
+              ],
+              "path": [
+                "notificacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "401 - sem token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"destinatario\": \"eric@ifnmg.edu.br\", \"mensagem\": \"teste do Postman\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_notificacao}}/notificacoes",
+              "host": [
+                "{{url_notificacao}}"
+              ],
+              "path": [
+                "notificacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "400 - sem mensagem",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"destinatario\": \"eric@ifnmg.edu.br\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_notificacao}}/notificacoes",
+              "host": [
+                "{{url_notificacao}}"
+              ],
+              "path": [
+                "notificacoes"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "orquestrador",
+      "item": [
+        {
+          "name": "201 - fluxo completo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 7 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "404 - evento inexistente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 999 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "400 - evento pendente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 8}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "409 - inscrição duplicada",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 9 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "403 - organizador tentando se inscrever",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_organizador}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 7 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "401 - sem token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 7 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "201 - notificação fora do ar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_participante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"evento_id\": 7 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_orquestrador}}/inscricoes",
+              "host": [
+                "{{url_orquestrador}}"
+              ],
+              "path": [
+                "inscricoes"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "url_notificacao",
+      "value": "http://localhost:5002"
+    },
+    {
+      "key": "url_orquestrador",
+      "value": "http://localhost:5003"
+    },
+    {
+      "key": "token_admin",
+      "secret": true
+    },
+    {
+      "key": "token_organizador",
+      "secret": true
+    },
+    {
+      "key": "token_participante",
+      "secret": true
+    }
+  ]
+}
