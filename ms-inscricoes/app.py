@@ -51,12 +51,15 @@ def formatar_inscricao(linha):
         "data": linha["data"],
     }
 
+#verifica se o serviço está no ar 
 @app.get("/health")
 def health():
     return jsonify({"status": "ok", "servico": "ms-inscricoes"}), 200
 
 @app.post("/inscricoes")
 @requer_papel("participante")
+
+#função para cadastrar uma nova inscrição 
 def criar_inscricao():
     dados = request.get_json(silent=True) or {}
     evento_id = dados.get("evento_id")
@@ -69,12 +72,11 @@ def criar_inscricao():
         return jsonify({"erro": "evento_id e usuario_id devem ser numéricos"}), 400
 
 #confere se o id do usuario do corpo é o mesmo dono do token
-
     if usuario_id != int(g.usuario["sub"]):
         return jsonify({"erro": "Acesso negado: usuario_id diferente do token"}), 403
 
     with get_db() as ponte:
-        #bloqueia se já tiver inscrição ativa no mesmo evento
+    #bloqueia se já tiver inscrição ativa no mesmo evento
         ativa = ponte.execute(
             """
             SELECT id FROM inscricoes
@@ -106,6 +108,8 @@ def criar_inscricao():
 
 @app.get("/inscricoes/<int:id>")
 @requer_papel("participante", "organizador", "admin")
+
+#geta as informações da inscrição 
 def detalhar_inscricao(id):
     with get_db() as ponte:
         inscricao = ponte.execute(
@@ -123,7 +127,7 @@ def detalhar_inscricao(id):
 
     return jsonify(formatar_inscricao(inscricao)), 200
 
-
+#muda o status da incrição para cancelada, porem nao apaga pra caso o usuario queira se reeinscrever
 @app.delete("/inscricoes/<int:id>")
 @requer_papel("participante")
 def cancelar_inscricao(id):
