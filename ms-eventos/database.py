@@ -2,7 +2,9 @@ import sqlite3
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
-DATABASE = BASE_DIR / "eventos.db"
+PASTA_DADOS = BASE_DIR / "data"
+PASTA_DADOS.mkdir(exist_ok=True)
+DATABASE = PASTA_DADOS / "eventos.db"
 
 
 def conectar():

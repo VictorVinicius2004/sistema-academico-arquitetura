@@ -1,3 +1,4 @@
+
 services:
   gateway:
     build:
@@ -6,7 +7,7 @@ services:
         SERVICO: gateway
     environment:
       - SERVICO=gateway
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
       - URL_IDENTIDADE=http://identidade:5001
       - URL_NOTIFICACAO=http://notificacao:5002
       - URL_ORQUESTRADOR=http://orquestrador:5003
@@ -25,7 +26,7 @@ services:
         SERVICO: identidade
     environment:
       - SERVICO=identidade
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
     ports:
       - "5001:5001"
 
@@ -36,7 +37,7 @@ services:
         SERVICO: notificacao
     environment:
       - SERVICO=notificacao
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
     ports:
       - "5002:5002"
 
@@ -47,7 +48,7 @@ services:
         SERVICO: orquestrador
     environment:
       - SERVICO=orquestrador
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
       - URL_EVENTOS=http://ms-eventos:5004
       - URL_INSCRICOES=http://ms-inscricoes:5005
       - URL_NOTIFICACAO=http://notificacao:5002
@@ -61,9 +62,11 @@ services:
         SERVICO: ms-eventos
     environment:
       - SERVICO=ms-eventos
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
     ports:
       - "5004:5004"
+    volumes:
+      - eventos_dados:/app/ms-eventos/data
 
   ms-inscricoes:
     build:
@@ -72,7 +75,7 @@ services:
         SERVICO: ms-inscricoes
     environment:
       - SERVICO=ms-inscricoes
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
     ports:
       - "5005:5005"
 
@@ -83,7 +86,10 @@ services:
         SERVICO: ms-certificados
     environment:
       - SERVICO=ms-certificados
-      - JWT_SECRET=${JWT_SECRET:40028922funkdoyudiquevaidaplaystation3}
+      - JWT_SECRET=${JWT_SECRET:-40028922funkdoyudiquevaidaplaystation3}
       - URL_INSCRICOES=http://ms-inscricoes:5005
     ports:
       - "5006:5006"
+
+volumes:
+  eventos_dados:
